@@ -3,28 +3,38 @@ import { IoMoon } from "react-icons/io5";
 import { IoSunnyOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { FaLock } from "react-icons/fa";
+import secondTemplate from '../utils/templatesQuestions/template_2'
+import { templates, TEMPLATES_ID } from "../constant";
+import { useDispatch } from "react-redux";
+import { updateStoreData } from "../features/formDataSlice";
+import { selectTemplateQuestions } from "../utils/commonFunctions/onTemplateSelect";
+
 
 function Home() {
 
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate()
 
-  const templates = [
-    { id: 1, src: "https://writelatex.s3.amazonaws.com/published_ver/45943.jpeg?X-Amz-Expires=14400&X-Amz-Date=20251113T160127Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAWJBOALPNFPV7PVH5/20251113/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=a2a90f36109d968d674821a8625ff960098f15af88f516c1bf2d127c4f43ed94", locked: false },
-    { id: 2, src: "https://writelatex.s3.amazonaws.com/published_ver/45792.jpeg?X-Amz-Expires=14400&X-Amz-Date=20251113T161037Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAWJBOALPNFPV7PVH5/20251113/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=139bab17cbe334ec7dc9d045d98091290418b17d2b37abf24c22715188d8ee9c", locked: true },
-    // { id: 3, src: "https://writelatex.s3.amazonaws.com/published_ver/23504.jpeg?X-Amz-Expires=14400&X-Amz-Date=20251113T161058Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAWJBOALPNFPV7PVH5/20251113/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=ff7d01639125ca42bcc47579509913529e8fccf9e29f4e896c901954b8674738", locked: false },
-    // { id: 4, src: "https://writelatex.s3.amazonaws.com/published_ver/38460.jpeg?X-Amz-Expires=14400&X-Amz-Date=20251113T161110Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAWJBOALPNFPV7PVH5/20251113/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=5af74041794b22823cfdcebd235f1ba25dadc7fab7e74a315620c5153f4fc43d", locked: true },
-  ];
 
+  const dispatch = useDispatch()
 
-  function redirectToForms(){
+  // Update store with template questions and navigate to form
+  function onTemplateClick(template) {
+
+    const questions = selectTemplateQuestions(template)
+    dispatch(updateStoreData(questions))
+
     navigate("/userDetails")
+
+
   }
+
+
 
 
   return (
     <div className={`${darkMode ? "bg-[#0b0b1a] text-white" : "bg-linear-to-br from-[#f9fafb] to-[#eef1f5] text-gray-900"} pb-8 min-h-screen transition-all duration-500`}>
-      
+
       {/* Navbar */}
       <nav className="flex justify-between items-center px-8 py-5 backdrop-blur-md bg-white/10 border-b border-gray-200 dark:border-gray-700">
         <h1 className="text-2xl font-bold tracking-tight bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
@@ -57,9 +67,9 @@ function Home() {
           {templates.map((t) => (
             <div
               key={t.id}
-              className={`relative rounded-2xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer ${
-                t.locked ? "opacity-60" : ""
-              }`}
+              className={`relative rounded-2xl overflow-hidden shadow-md hover:scale-105 transition duration-300 cursor-pointer ${t.locked ? "opacity-60" : ""
+                }`}
+              onClick={() => onTemplateClick(t)}
             >
               <img src={t.src} alt={`Template ${t.id}`} className="w-full h-auto" />
               {t.locked && (
@@ -72,12 +82,7 @@ function Home() {
         </div>
 
         {/* CTA Button */}
-        <button 
-        className="bg-linear-to-r cursor-pointer from-indigo-500 to-purple-500 text-white font-semibold px-10 py-3 rounded-full text-lg hover:shadow-lg hover:scale-105 transition"
-        onClick={redirectToForms}
-        >
-          Get Started
-        </button>
+
       </section>
     </div>
   )

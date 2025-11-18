@@ -1,4 +1,4 @@
-export default function renderBasicForm({questions, inputChange}) {
+export default function RenderingBasicForm({questions, inputChange}) {
     { console.log(questions, 'item in function') }
 
     return <>

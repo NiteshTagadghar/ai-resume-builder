@@ -1,13 +1,13 @@
 import { useSelector } from 'react-redux'
-// import ProgressBar from '../ProgressBar'
 import FormContainer from '../components/FormContainer'
+// import ProgressBar from '../ProgressBar'
 
 function Form() {
 
-    const formRenderStatus = useSelector((state) => state.formData.formRenders)
+    const formData = useSelector((state) => state.formData)
 
 
-    console.log(formRenderStatus, 'form render status')
+    console.log(formData, 'form render status')
     return (
         <div className='min-h-screen flex flex-col items-center p-4'>
 

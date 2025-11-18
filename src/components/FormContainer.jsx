@@ -5,9 +5,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateData, updateFormRender, updateStoreData } from '../features/formDataSlice'
-import  RenderBasicForm  from '../utils/RenderBasicForm'
 import { FORM_SECTIONS } from '../constant'
 import { useNavigate } from 'react-router-dom'
+import RenderingBasicForm from './RenderBasicForm'
 
 function FormContainer() {
 
@@ -67,7 +67,7 @@ function FormContainer() {
         <div>
             <form className="max-w-md mx-auto" onSubmit={getData}>
 
-            {currentForm !== FORM_SECTIONS.PROJECT ?  <RenderBasicForm questions = {questions} inputChange={inputChange} /> : <h1>Shubham pick up the task</h1> }
+            {currentForm !== FORM_SECTIONS.PROJECT ?  <RenderingBasicForm questions = {questions} inputChange={inputChange} /> : <h1>Shubham pick up the task</h1> }
 
 
                 {/* Submit */}
