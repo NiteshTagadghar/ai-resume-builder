@@ -1,30 +1,52 @@
-export default function RenderingBasicForm({questions, inputChange}) {
+import Input from "./Input";
+import MultiSelect from "./MultiSelect";
+import TextEditor from "./TextEditor";
 
-    return <>
-    {questions?.map((item, index) =>
-        <div key={`${item.id}-${index}`} className=" w-full mb-5 group">
-            <input
-                type={item.type}
-                name={item.id}
-                id={item.id}
-                className="block py-2.5 px-0 w-full text-2xl  text-black border-0 border-b-2 border-default-medium"
-                placeholder={item.displayQuestion}
-                value={item.answer}
-                // required
-                onChange={(e) => {
-                    inputChange(e.target.value, item)
 
-                }}
+const RenderingBasicForm = ({ questions, inputChange, section, subsectionKey }) => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+      {questions.map((item) => (
+        <div key={item.id} className={`${item.isEditorEnabled ? "col-span-2" : ""}`}>
+          <div className="flex justify-between items-center mb-2">
+            <label className="block text-sm font-medium text-gray-700">
+              {item.displayQuestion}
+            </label>
+
+            {item.canSkip && (
+              <span className="text-xs text-gray-500 bg-gray-600 px-2 py-1 rounded">
+                Optional
+              </span>
+            )}
+          </div>
+
+          {/* Multi Select Field */}
+          {item.isMultiSelect ? (
+            <MultiSelect
+              item={item}
+              section={section}
+              inputChange={inputChange}
+              subsectionKey={subsectionKey}
             />
 
+          ) : item.isEditorEnabled ? (
+            <TextEditor
+              item={item}
+              section={section}
+              inputChange={inputChange}
+              subsectionKey={subsectionKey}
+            />
 
-                    <label
-                        htmlFor={item.id}
-                        className="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                        {item.displayQuestion}
-                    </label>
-        </div>)}
-    
-    </>
-}
+          ) : (
+            <Input
+              item={item}
+              inputChange={inputChange}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default RenderingBasicForm;
