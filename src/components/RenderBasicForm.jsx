@@ -1,8 +1,7 @@
 export default function RenderingBasicForm({questions, inputChange}) {
-    { console.log(questions, 'item in function') }
 
     return <>
-    {questions.map((item, index) =>
+    {questions?.map((item, index) =>
         <div key={`${item.id}-${index}`} className=" w-full mb-5 group">
             <input
                 type={item.type}

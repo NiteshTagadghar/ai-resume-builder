@@ -4,6 +4,8 @@ import { FaLock, FaTimes } from "react-icons/fa";
 import { templates, TEMPLATES_ID } from "../constant";
 import { useDispatch, useSelector } from "react-redux";
 import { clearStoreData, updateStoreData } from "../features/formDataSlice";
+import templateOneInitialState from "../utils/templatesQuestions/template_1";
+import templateTwoInitialState from "../utils/templatesQuestions/template_2";
 
 
 function Home() {
@@ -17,8 +19,16 @@ function Home() {
   function handleProceed() {
     if (!selectedTemplate) return;
 
+    let selectedQuestions 
+
+    if(selectedTemplate.id === TEMPLATES_ID.TEMPLATE_1){
+      selectedQuestions = templateOneInitialState
+    }else if(selectedTemplate.id === TEMPLATES_ID.TEMPLATE_2){
+      selectedQuestions = templateTwoInitialState
+    }
+
     // Update intial state from users store
-    dispatch(updateStoreData(selectedTemplate));
+    dispatch(updateStoreData(selectedQuestions));
     navigate("/userDetails");
   }
 

@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
-// import ProgressBar from '../ProgressBar'
 
 function Form() {
 

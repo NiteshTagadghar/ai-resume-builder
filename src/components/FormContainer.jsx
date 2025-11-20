@@ -13,8 +13,6 @@ function FormContainer() {
 
     const currentForm = useSelector((state) => state.formData.currentForm)
     const renderingArray = useSelector((state) => state.formData.renderingQuestions)
-    // Store questions in array format also verify if its an array or object 
-    const questions = Array.isArray(renderingArray) ? renderingArray : Object.values(renderingArray)
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
@@ -35,18 +33,21 @@ function FormContainer() {
     }
 
 
+    // Update answer for each question in store
     function inputChange(text, item) {
 
         dispatch(updateData(
             {
                 answer: text,
                 questionId: item.id,
-                section: currentForm
+                section: currentForm,
+                // subSectionKey : 
             }))
 
     }
 
 
+    // If page refreshes take stored data from local storage and update the store
     useEffect(()=>{
 
         if(localStorage.getItem("userData")){
@@ -60,14 +61,13 @@ function FormContainer() {
     },[])      
 
 
-    console.log(renderingArray,'data from redux store')
 
 
     return (
         <div>
             <form className="max-w-md mx-auto" onSubmit={getData}>
 
-            {currentForm !== FORM_SECTIONS.PROJECT ?  <RenderingBasicForm questions = {questions} inputChange={inputChange} /> : <h1>Shubham pick up the task</h1> }
+            {Array.isArray(renderingArray)  ?  <RenderingBasicForm questions = {renderingArray} inputChange={inputChange} /> : <h1>Shubham pick up the task</h1> }
 
 
                 {/* Submit */}
