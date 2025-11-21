@@ -10,14 +10,16 @@ import { useNavigate } from 'react-router-dom'
 import RenderingBasicForm from './RenderBasicForm'
 import NestedForm from './NestedForm'
 
-function FormContainer() {
+function FormContainer({setSubmittedFormCount}) {
 
     const currentForm = useSelector((state) => state.formData.currentForm)
     const renderingArray = useSelector((state) => state.formData.renderingQuestions)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const sectionTitle = SECTION_TITLES[currentForm]
+
     const isNested = renderingArray && !Array.isArray(renderingArray) && Object.values(renderingArray).every(Array.isArray);
+    
     const labelFormatter = LABEL_FORMATTERS[currentForm] || null;
     const isFinalSection = [FORM_SECTIONS.CERTIFICATIONS, FORM_SECTIONS.INTERNSHIP].includes(currentForm);
 
@@ -33,6 +35,9 @@ function FormContainer() {
             dispatch(updateFormRender())
 
         }
+
+        // Increase form submit count
+        setSubmittedFormCount((prev)=>prev+1)
 
 
     }
