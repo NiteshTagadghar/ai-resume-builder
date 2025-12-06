@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import RenderingBasicForm from "./RenderBasicForm";
 
 const NestedForm = ({ nestedData, section, labelFormatter, inputChange }) => {
@@ -11,35 +11,35 @@ const NestedForm = ({ nestedData, section, labelFormatter, inputChange }) => {
 
 
   // ---------- SKIP LOGIC -------------
-      const handleSkipTab = () => {
-          // Remember that the current tab was skipped   prev = previous skipped tabs   activeTab = the tab we're currently on
-      
-        setSkippedTabs((prev) => [...prev, activeTab]);
+  const handleSkipTab = () => {
+    // Remember that the current tab was skipped   prev = previous skipped tabs   activeTab = the tab we're currently on
 
-      // Find the position of the current tab in all tabs
-      const currentIndex = tabs.indexOf(activeTab);
-      
-          //If there is a next tab, make it active
-      if (currentIndex < tabs.length - 1) {
-        setActiveTab(tabs[currentIndex + 1]);
-      }
-      };
+    setSkippedTabs((prev) => [...prev, activeTab]);
 
-        function hasSkippableFields() {
-        // Step 1: Get all the questions in the current tab
-        const questions = nestedData[activeTab];
+    // Find the position of the current tab in all tabs
+    const currentIndex = tabs.indexOf(activeTab);
 
-        // Step 2: If there are no questions, return false
-        if (!questions || !Array.isArray(questions)) {
-          return false;
-        }
+    //If there is a next tab, make it active
+    if (currentIndex < tabs.length - 1) {
+      setActiveTab(tabs[currentIndex + 1]);
+    }
+  };
 
-        // Step 3: Check if any question has "canSkip" = true
-        return questions.some(question => question.canSkip === true);
-      }
+  function hasSkippableFields() {
+    // Step 1: Get all the questions in the current tab
+    const questions = nestedData[activeTab];
+
+    // Step 2: If there are no questions, return false
+    if (!questions || !Array.isArray(questions)) {
+      return false;
+    }
+
+    // Step 3: Check if any question has "canSkip" = true
+    return questions.some(question => question.canSkip === true);
+  }
 
 
-
+  console.log( 'tabs data')
   // Reset tabs on section change
   useEffect(() => {
     setActiveTab(tabs[0] || null);
@@ -53,12 +53,12 @@ const NestedForm = ({ nestedData, section, labelFormatter, inputChange }) => {
       <div className="flex flex-wrap gap-2 border-b border-gray-200 pb-4">
         {tabs.map((key) => (
           <button
-            key={key} 
+            key={key}
             onClick={() => setActiveTab(key)}
             type="button"
             className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === key
-                ? "bg-green-500 text-white shadow-md"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? "bg-green-500 text-white shadow-md"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
           >
             {labelFormatter ? labelFormatter(key) : key}
@@ -96,7 +96,7 @@ const NestedForm = ({ nestedData, section, labelFormatter, inputChange }) => {
             {/* Actual Questions */}
             <RenderingBasicForm
               questions={nestedData[key] || []}
-              inputChange={(text, item) => inputChange(text, item, key)}
+              inputChange={inputChange}
               section={section}
               subsectionKey={key}
             />

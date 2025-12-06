@@ -1,13 +1,14 @@
 
 import { getInputType } from "../utils/commonFunctions/forms";
 
-const Input = ({ item, inputChange }) => {
+const Input = ({ item, inputChange, subsectionKey }) => {
 
     const inputType = getInputType(item);
 
     //  HANDLE CHANGE FUNCTION
     const handleChange = (value) => {
-        inputChange(value, item);
+        console.log(value,item,'value and item')
+        inputChange(value, item,subsectionKey);
     };
 
    //  DROPDOWN SUPPORT (12th / Diploma)

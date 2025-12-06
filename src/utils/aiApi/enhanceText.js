@@ -29,7 +29,7 @@ export async function enhanceText(inputText, maxLength=800, minLength =300) {
   };
 
   const apiUrl =
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=AIzaSyC-lxpK1TNzUp85b-oUZUc33ZrbUubOYnc";
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=AIzaSyDs4QvQwXcD_Yykj4Rz_UE4gJ7PIeb7L8M";
 
   try {
     const response = await axios.post(apiUrl, payload, {

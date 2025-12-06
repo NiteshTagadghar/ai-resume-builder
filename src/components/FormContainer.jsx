@@ -54,6 +54,7 @@ function FormContainer({ setSubmittedFormCount, submittedFormCount }) {
 
     // Update answer for each question in store
     function inputChange(text, item, subSectionKey = null) {
+        console.log(subSectionKey,item,text,'input chage params')
         // UPDATE FIELD VALUE , VALIDATE
         const updatedItem = { ...item, answer: text };
 
@@ -99,7 +100,6 @@ function FormContainer({ setSubmittedFormCount, submittedFormCount }) {
 
 
     const updateSubmitButtonStatus = useCallback(() => {
-        console.log("triggering")
 
         // Check if required fields are filled
         const filled = isRequiredFieldsFilled(renderingArray);
@@ -107,13 +107,15 @@ function FormContainer({ setSubmittedFormCount, submittedFormCount }) {
         // Disable button if NOT filled
         setIsDisabled(!filled);
 
-        console.log("Fields filled?", filled);
     }, [renderingArray])
 
 
     function isFormNested() {
         // Check if the current form section has subsections
         // Check if renderingArray exists and is an object (not an array)
+        console.log( renderingArray &&
+            typeof renderingArray === "object" &&
+            !Array.isArray(renderingArray),'condition to tell is ')
         if (
             renderingArray &&
             typeof renderingArray === "object" &&
@@ -121,32 +123,27 @@ function FormContainer({ setSubmittedFormCount, submittedFormCount }) {
         ) {
             // Convert Object values in array
             const values = Object.values(renderingArray || {});
-
+            
             // Check if every value inside the object is an array, returns boolean
             const allValuesAreArrays = values.every((value) => Array.isArray(value));
+            console.log("step 1 passed",allValuesAreArrays)
 
             // Update if the form is nested form or not 
             setIsNested(allValuesAreArrays);
         }
 
     }
-
-
-
-
-    // Disable button
+    
     useEffect(() => {
         // Check if form is nested form
         isFormNested()
-    }, []);
 
-
-    useEffect(() => {
         // Disabled Submit/Next button based on filled forms
         updateSubmitButtonStatus()
     }, [renderingArray])
 
 
+    // console.log(renderingArray,isNested,'questions detail')
 
     return (
         <div
@@ -162,7 +159,7 @@ function FormContainer({ setSubmittedFormCount, submittedFormCount }) {
                         } p-6 rounded-lg transition-colors`}
                     onSubmit={getData}
                 >
-                    {isNested ? (
+                    {isNested===true ? (
                         <NestedForm
                             nestedData={renderingArray}
                             section={currentForm}

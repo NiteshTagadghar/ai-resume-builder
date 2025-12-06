@@ -7,9 +7,10 @@ import TextEditor from "./TextEditor";
 const RenderingBasicForm = ({ questions, inputChange, section, subsectionKey }) => {
   const darkMode = useSelector((state) => state.theme);
 
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-      {questions.map((item, idx) => (
+      {questions?.map((item, idx) => (
         <div
           key={item.id || idx}
           className={`${item.isEditorEnabled ? "col-span-2" : ""}`}>
@@ -55,6 +56,8 @@ const RenderingBasicForm = ({ questions, inputChange, section, subsectionKey }) 
               item={item}
               inputChange={inputChange}
               darkMode={darkMode}
+              subsectionKey={subsectionKey}
+
             />
           )}
 

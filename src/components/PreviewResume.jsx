@@ -14,11 +14,11 @@ function PreviewResume({
 
   // ICON + FORMAT SETTINGS
   const CONTACT_MAP = {
-    "Git Link": {
+    gitHub: {
       icon: <FaGithub size={15} />,
       format: (v) => v,
     },
-    "LinkedIn Link": {
+    linkedIn: {
       icon: <FaLinkedin size={15} />,
       format: (v) => v,
     },
@@ -26,7 +26,7 @@ function PreviewResume({
       icon: <HiOutlineMail size={15} />,
       format: (v) => v,
     },
-    "Phone Number": {
+    phone: {
       icon: <BsPhoneFill size={15} />,
       format: (v) => `+91 ${v}`,
     },
@@ -49,7 +49,6 @@ function PreviewResume({
 
 
 
-  console.log(userData,'resume data ')
 
   return (
     <div
@@ -91,7 +90,7 @@ function PreviewResume({
           }}
         >
           {iconsArr.map((item) => {
-            const conf = CONTACT_MAP[item.displayQuestion] || {};
+            const conf = CONTACT_MAP[item.icon] || {};
 
             return (
               <div

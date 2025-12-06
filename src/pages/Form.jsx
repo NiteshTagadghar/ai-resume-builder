@@ -21,13 +21,13 @@ function Form() {
         const locallyStoredUserData = localStorage.getItem("userData");
 
         if (locallyStoredUserData) {
-            // try {
+            try {
             const localStorageData = JSON.parse(locallyStoredUserData);
             dispatch(updateStoreData(localStorageData));
-            // } catch (error) {
-            //   console.error("Corrupted localStorage userData:", error);
-            //   localStorage.removeItem("userData");
-            // }
+            } catch (error) {
+              console.error("Corrupted localStorage userData:", error);
+              localStorage.removeItem("userData");
+            }
         }
 
         const submittedFormCountStoredInLocal = Number(localStorage.getItem("submittedFormCount"));

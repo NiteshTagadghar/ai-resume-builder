@@ -85,21 +85,21 @@ const intro = [
     type: "text",
     answer: "",
   },
-  { displayQuestion: "Git Link", id: nanoid(), type: "url", answer: "", icon: FaGithub },
+  { displayQuestion: "Git Link", id: nanoid(), type: "url", answer: "", icon: "gitHub" },
   {
     displayQuestion: "LinkedIn Link",
     id: nanoid(),
     type: "url",
     answer: "",
-    icon: FaLinkedin,
+    icon: "linkedIn",
   },
-  { displayQuestion: "email", id: nanoid(), type: "email", answer: "", icon: HiOutlineMail },
+  { displayQuestion: "email", id: nanoid(), type: "email", answer: "", icon: "email" },
   {
     displayQuestion: "Phone Number",
     id: "mobile",
     type: "number",
     answer: "",
-    icon: BsPhoneFill
+    icon: "phone"
   },
 ]
 

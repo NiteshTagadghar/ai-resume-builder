@@ -12,6 +12,8 @@ const MultiSelect = ({
   const skillType = subsectionKey || item.id;
   const options = skillsOptions[skillType] || [];
 
+  console.log(subsectionKey,'sub section key in multiselect')
+
   const parseValue = () => {
     if (!item.answer) return [];
 
@@ -43,7 +45,7 @@ const MultiSelect = ({
       ? selectedOptions.map((opt) => opt.value).join(", ")
       : "";
 
-    inputChange(values, item);
+    inputChange(values, item,subsectionKey);
   };
 
   return (
